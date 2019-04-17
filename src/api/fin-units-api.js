@@ -20,14 +20,10 @@ function getAllRawFinUnits() {
 }
 
 function getConvert(_from, to, amount, decimal_places) {
-    const url = //'https://sonar.trading/api/v1/convert'
-        baseUrl + '/convert'
+    const url = baseUrl + '/convert'
         + `?_from=${_from}&to=${to}&amount=${amount}&decimal_places=${decimal_places}`;
 
-    const config = {
-        // proxy: {host: 'localhost', port: 8080},
-        // withCredentials: true,
-    };
+    const config = {};
 
     return axios.get(url, config)
         .then(handleResponse)
@@ -44,24 +40,26 @@ async function joinView() {
 
         for (let unit of rawFinUnits) {
             const position = positions.find(x => x.fuOriginId === unit.id);
+            if (!position) {
+                // throw new Error('position not found for id ' + unit.id);
+                console.log('position not found for id ' + unit.id);
+                continue;
+            }
             const { data: { currency: { ccy, notionalValue } } } = position;
-            
-            console.log({unit, position})
-
-            
-            if (ccy === undefined || notionalValue === undefined)
-                throw new Error('position not found for id ' + unit.id);
 
             const convert = await getConvert(ccy, to, 1, decimal_places);
 
-            const { to: { rate } } = convert;
+            const { to: [{ rate }] } = convert;
+
+            console.log({ unit, position, convert })
 
             if (rate === undefined)
                 throw new Error('rate not found for id ' + unit.id);
 
             const calcValue = rate * notionalValue;
 
-            results.push({name: unit.name, nationalValue: notionalValue, rate, currency: ccy, calcValue});
+            results.push({ name: unit.name, notionalValue, rate, currency: ccy, calcValue });
+            console.table(results)
         }
 
         return results;
