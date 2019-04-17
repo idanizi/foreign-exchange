@@ -45,7 +45,6 @@ server.get('/convert/', function (req, res, next) {
   request({
     url,
     'method': "GET",
-    // 'proxy': 'http://proxy-chain.intel.com:911',
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);

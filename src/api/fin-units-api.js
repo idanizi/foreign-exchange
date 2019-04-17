@@ -41,7 +41,6 @@ async function joinView() {
         for (let unit of rawFinUnits) {
             const position = positions.find(x => x.fuOriginId === unit.id);
             if (!position) {
-                // throw new Error('position not found for id ' + unit.id);
                 console.log('position not found for id ' + unit.id);
                 continue;
             }
