@@ -21,9 +21,10 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "run-p start:dev start:api",
+    "start": "run-p start:dev start:api:mock",
     "start:dev": "react-scripts start",
-    "start:api": "npx json-server --port 8080 src/api/mock/db-mock.json --watch",
+    "prestart:api:mock": "node server/mock/createMockDb.js",
+    "start:api:mock": "node server/mock",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
