@@ -7,14 +7,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import configureStore from './redux/configure-store';
 
 const initialState = {
-    user: {
-        connected: false,
-        username: '',
-        status: '',
-        displayName: '',
-        _id: '',
-    },
-    employees: [],
+    finUnits: [],
 }
 
 const store = configureStore(initialState);
