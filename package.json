@@ -1,5 +1,11 @@
 {
   "name": "foreign-exchange",
+  "description": "Assignment for Capitolis full-stack open position",
+  "author": {
+    "name": "Idan Izicovich",
+    "email": "idanizi@gmail.com",
+    "url": "https://www.idanizi.com"
+  },
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
