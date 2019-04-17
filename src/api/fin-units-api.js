@@ -39,25 +39,23 @@ async function joinView() {
         const decimal_places = 4;
 
         for (let unit of rawFinUnits) {
-            const position = positions.find(x => x.fuOriginId === unit.id);
-            if (!position) {
-                console.log('position not found for id ' + unit.id);
-                continue;
+            for (let position of positions.filter(x => x.fuOriginId === unit.id)) {
+
+                const { data: { currency: { ccy, notionalValue } } } = position;
+
+                const convert = await getConvert(ccy, to, 1, decimal_places);
+
+                const { to: [{ rate }] } = convert;
+
+                console.log({ unit, position, convert })
+
+                if (rate === undefined)
+                    throw new Error('rate not found for id ' + unit.id);
+
+                const calcValue = rate * notionalValue;
+
+                results.push({ name: unit.name, notionalValue, rate, currency: ccy, calcValue });
             }
-            const { data: { currency: { ccy, notionalValue } } } = position;
-
-            const convert = await getConvert(ccy, to, 1, decimal_places);
-
-            const { to: [{ rate }] } = convert;
-
-            console.log({ unit, position, convert })
-
-            if (rate === undefined)
-                throw new Error('rate not found for id ' + unit.id);
-
-            const calcValue = rate * notionalValue;
-
-            results.push({ name: unit.name, notionalValue, rate, currency: ccy, calcValue });
             console.table(results)
         }
 

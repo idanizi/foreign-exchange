@@ -1,84 +1,99 @@
+hr {
+  width: 100%;
+  border: 2px solid lightgray;
+}
+.download-csv-btn {
+  position: relative;
+  width: 100%;
+  text-align: right;
+}
+
+/* .download-csv-btn a {
+  position: relative;
+  right: 0px;
+} */
+
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 table, tr, td {
-    border: 1px solid black;
-    text-align: left;
+  border: 1px solid black;
+  text-align: left;
 }
 
 th, td {
-    padding: 1ex;
+  padding: 1ex;
 }
 
-tr:nth-child(even){
-    background-color: lightgray;
+tr:nth-child(even) {
+  background-color: lightgray;
 }
 
-tr:hover{
-    background-color: lightblue;
+tr:hover {
+  background-color: lightblue;
 }
 
 .spinner {
-    position: relative;
-    top: calc(50% - 50px);
-    left: calc(50% - 50px);
-    width: 100px;
-    height: 100px;
-    
-    animation: spin 1.5s linear infinite;
+  position: relative;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner circle {
+  fill: transparent;
+  stroke: #651FFF;
+  stroke-width: 4;
+  stroke-dasharray: 113;
+  transform-origin: center;
+  animation: l2 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
   }
-  .spinner circle{
-    fill: transparent;
-    stroke: #651FFF;
-    stroke-width: 4;
-    stroke-dasharray: 113;
-    transform-origin: center;
-    animation: l2 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes l2 {
+  0% {
+    stroke-dashoffset: 108;
+    transform: rotate(-90deg);
   }
-  
-  @keyframes spin {
-    100% {
-      transform: rotate(360deg);
-    }
+  12.5% {
+    stroke-dashoffset: 24;
+    transform: rotate(-90deg);
   }
-  
-  @keyframes l2 {
-    0% {
-      stroke-dashoffset: 108;
-      transform: rotate(-90deg);
-    }
-    12.5%{
-      stroke-dashoffset: 24;
-      transform: rotate(-90deg);
-    }
-    25%{
-      stroke-dashoffset: 108;
-      transform: rotate(180deg);
-    }
-    37.5%{
-      stroke-dashoffset: 24;
-      transform: rotate(180deg);
-    }
-    50%{
-      stroke-dashoffset: 108;
-      transform: rotate(450deg);
-    }
-    62.5%{
-      stroke-dashoffset: 24;
-      transform: rotate(450deg);
-    }
-    75%{
-      stroke-dashoffset: 108;
-      transform: rotate(720deg);
-    }
-    87.5%{
-      stroke-dashoffset: 24;
-      transform: rotate(720deg);
-    }
-    100%{
-      stroke-dashoffset: 108;
-      transform: rotate(990deg);
-    }
+  25% {
+    stroke-dashoffset: 108;
+    transform: rotate(180deg);
   }
+  37.5% {
+    stroke-dashoffset: 24;
+    transform: rotate(180deg);
+  }
+  50% {
+    stroke-dashoffset: 108;
+    transform: rotate(450deg);
+  }
+  62.5% {
+    stroke-dashoffset: 24;
+    transform: rotate(450deg);
+  }
+  75% {
+    stroke-dashoffset: 108;
+    transform: rotate(720deg);
+  }
+  87.5% {
+    stroke-dashoffset: 24;
+    transform: rotate(720deg);
+  }
+  100% {
+    stroke-dashoffset: 108;
+    transform: rotate(990deg);
+  }
+}
