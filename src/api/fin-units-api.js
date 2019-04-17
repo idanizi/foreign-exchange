@@ -1,7 +1,5 @@
 import { baseUrl, handleError, handleResponse } from "./api-utils";
 import axios from 'axios';
-// import ApiMock from "./mock/api-mock";
-
 
 function getAllPositions() {
     const route = '/positions';
@@ -22,7 +20,7 @@ function getAllFinUnits() {
 }
 
 function joinView(finUnits, positions) {
-    
+
 }
 
 class FinUnitsApi {
