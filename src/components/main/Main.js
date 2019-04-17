@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Main.css';
 import { connect } from 'react-redux';
 import * as finUnitActions from "../../redux/actions/fin-unit-actions";
+import { CSVLink } from "react-csv";
 
 function LoadingSpinner(props) {
     const { columns } = props;
@@ -16,6 +17,19 @@ function LoadingSpinner(props) {
     );
 }
 
+function CsvButton(props) {
+
+    const { finUnits, isLoading } = props;
+
+    if (isLoading) return null;
+
+    return (
+        <div>
+            <CSVLink data={finUnits}>Download CSV</CSVLink>
+        </div>
+    );
+}
+
 class Main extends Component {
 
     componentDidMount() {
@@ -24,7 +38,7 @@ class Main extends Component {
 
     render() {
 
-        let { finUnits } = this.props;
+        const { finUnits } = this.props;
         const columns = {
             name: 'Financial Unit Name',
             notionalValue: 'National Value',
@@ -33,9 +47,12 @@ class Main extends Component {
             calcValue: 'Calculated Value (in USD)',
         };
 
+        const isLoading = !finUnits || finUnits.length === 0;
+
         return (
             <div className="Main">
                 <h1>Foreign Exchange</h1>
+                <CsvButton {...{ finUnits, isLoading }} />
                 <table>
                     <thead>
                         <tr>
@@ -44,7 +61,7 @@ class Main extends Component {
                     </thead>
                     <tbody>
                         {
-                            !finUnits || finUnits.length === 0 ?
+                            isLoading ?
                                 <LoadingSpinner {...{ columns }} /> :
                                 finUnits.map(unit =>
                                     <tr key={unit.name}>
