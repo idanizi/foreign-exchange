@@ -1,40 +1,45 @@
 import React, { Component } from 'react';
-import { EmployeesList } from '../';
-import { Statuses } from '../../models'
 import './Main.css';
 import { connect } from 'react-redux';
-import * as employeeActions from '../../redux/actions/employee-actions'
-
-const UpdateStatus = (props) => (
-    <div className="update-status">
-        <h3>Update My Current Status:</h3>
-        <select onChange={evt => props.statusChangedHandler(evt.target.value)} value={props.status}>
-            {Object.entries(Statuses).map(([value, label], key) =>
-                <option {...{ value, key }}>{label}</option>)}
-        </select>
-    </div>
-)
-
+import * as finUnitActions from "../../redux/actions/fin-unit-actions";
 
 class Main extends Component {
 
+    componentDidMount() {
+        this.props.getTableView();
+    }
+
     render() {
 
-        let { statusChangedHandler, user } = this.props;
-        let { displayName, status, _id } = user;
+        let { finUnits } = this.props;
+        const columns = {
+            name: 'Financial Unit Name',
+            notionalValue: 'National Value',
+            rate: 'Rate',
+            currency: 'Currency',
+            calcValue: 'Calculated Value (in USD)',
+        };
+
         return (
             <div className="Main">
-                <h1>Hello {displayName}, you are on {Statuses[status].toLowerCase().replace(/\s*on\s*/, '')} </h1>
-
-                <UpdateStatus {...{ statusChangedHandler: status => statusChangedHandler({ status, _id }), status }} />
-                <EmployeesList />
+                <h1>Foreign Exchange</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            {Object.values(columns).map((x, key) => <th {...{ key }}>{x}</th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {finUnits.map(unit =>
+                            <tr key={unit.name}>
+                                {Object.keys(columns).map(column => <td key={column + unit.name}>{unit[column]}</td>)}
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
         );
     }
 }
 
-const mapDispatch = {
-    statusChangedHandler: employeeActions.updateEmployeeStatus,
-}
-
-export default connect(state => ({ user: state.user }), mapDispatch)(Main);
+export default connect(x => x, finUnitActions)(Main);

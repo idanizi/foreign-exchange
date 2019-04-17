@@ -1,9 +1,21 @@
-hr {
+table {
+    border-collapse: collapse;
     width: 100%;
-    border: 2px solid lightgray;
 }
 
-.update-status {
-    width: 70vw;
-    margin: 1ex 0px;
+table, tr, td {
+    border: 1px solid black;
+    text-align: left;
+}
+
+th, td {
+    padding: 1ex;
+}
+
+tr:nth-child(even){
+    background-color: lightgray;
+}
+
+tr:hover{
+    background-color: lightblue;
 }

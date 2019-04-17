@@ -3,6 +3,9 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
 const router = jsonServer.router(path.join(__dirname, "db.json"));
+const request = require('request');
+
+const axios = require('axios');
 
 // Can pass a limited number of options to this to override (some) defaults. See https://github.com/typicode/json-server#api
 const middlewares = jsonServer.defaults();
@@ -14,8 +17,9 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 // Simulate delay on all requests
-server.use(function(req, res, next) {
-  setTimeout(next, 1000);
+let delaySimulationTimer;
+server.use(function (req, res, next) {
+  delaySimulationTimer = setTimeout(next, 500);
 });
 
 // Declaring custom routes below. Add custom routes before JSON Server router
@@ -27,6 +31,29 @@ server.use((req, res, next) => {
   }
   // Continue to JSON Server router
   next();
+});
+
+
+server.get('/convert/', function (req, res, next) {
+  
+  clearTimeout(delaySimulationTimer);
+  
+  const { _from, to, amount, decimal_places } = req.query;
+  const url = 'https://sonar.trading/api/v1/convert'
+    + `?from=${_from}&to=${to}&amount=${amount}&decimal_places=${decimal_places}`;
+
+  request({
+    url,
+    'method': "GET",
+    // 'proxy': 'http://proxy-chain.intel.com:911',
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      res.json(JSON.parse(body));
+    } else {
+      res.status(501).json({ message: error });
+    }
+  })
 });
 
 // Use default router
