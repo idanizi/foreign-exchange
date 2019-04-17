@@ -1,0 +1,26 @@
+{
+  "employees": [
+    {
+      "connected": true,
+      "username": "idan@test.com",
+      "status": "ON_VACATION",
+      "displayName": "idan",
+      "_id": "idString12345",
+      "id": "idString12345"
+    },
+    {
+      "id": "idString12334",
+      "_id": "idString12334",
+      "username": "Tom@test.com",
+      "displayName": "Tom",
+      "status": "WORKING"
+    },
+    {
+      "id": "idString12346",
+      "_id": "idString12346",
+      "username": "Ofir@test.com",
+      "displayName": "Ofir",
+      "status": "LUNCH_TIME"
+    }
+  ]
+}

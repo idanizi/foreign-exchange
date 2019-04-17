@@ -1,0 +1,32 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, tr, td {
+    border: 1px solid black;
+    text-align: left;
+}
+
+th, td {
+    padding: 1ex;
+}
+
+tr:nth-child(even){
+    background-color: lightgray;
+}
+
+tr:hover{
+    background-color: lightblue;
+}
+
+.input-group {
+    margin: 2vh 0vw;
+    display: grid;
+    grid-template-columns: auto 15ch;
+    grid-gap: 4px;
+}
+
+.EmployeesList {
+    width: 70vw;
+}

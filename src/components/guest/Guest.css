@@ -1,0 +1,15 @@
+.login-btn {
+    width: 4em;
+    height: 2em;
+    margin: 1em;
+}
+
+.input-txt{
+    margin: 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -1,0 +1,9 @@
+hr {
+    width: 100%;
+    border: 2px solid lightgray;
+}
+
+.update-status {
+    width: 70vw;
+    margin: 1ex 0px;
+}
